@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/judwhite/viceskeleton/cmd/webserver/models"
-	"github.com/judwhite/viceskeleton/pkg/database"
+	"github.com/vicesoftware/vice-go-boilerplate/cmd/webserver/models"
+	"github.com/vicesoftware/vice-go-boilerplate/pkg/database"
 )
 
 func Ok(w http.ResponseWriter, value interface{}) error {

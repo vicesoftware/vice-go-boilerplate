@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/judwhite/viceskeleton/cmd/webserver/models"
+	"github.com/vicesoftware/vice-go-boilerplate/cmd/webserver/models"
 
 	"github.com/gorilla/mux"
-	_ "github.com/judwhite/viceskeleton/cmd/webserver/docs"
-	"github.com/judwhite/viceskeleton/pkg/database"
+	_ "github.com/vicesoftware/vice-go-boilerplate/cmd/webserver/docs"
+	"github.com/vicesoftware/vice-go-boilerplate/pkg/database"
 	"github.com/swaggo/http-swagger"
 )
 

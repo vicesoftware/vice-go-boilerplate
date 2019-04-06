@@ -6,11 +6,12 @@ This boilerplate was created to provided an opinonated starting point for projec
 - [Getting Started](#getting-started)
 	- [Installing Postgres](#installing-postgres)
 		- [Starting the Database](#starting-the-database)
+		- [Running PSQL](#running-psql)
 	- [Setting Up the Database](#setting-up-the-database)
 		- [Creating User](#creating-user)
 		- [Creating the DB](#creating-the-db)
-		- [Verify User and Datab](#verify-user-and-datab)
-		- [Changing default configurations](#changing-default-configurations)
+- [Installing Depedencies, Building and Running the App](#installing-depedencies-building-and-running-the-app)
+- [Changing default configurations](#changing-default-configurations)
 - [Our Values and Priorities](#our-values-and-priorities)
 
 # Getting Started
@@ -55,7 +56,11 @@ If you installed using brew as described above then execute the following comman
 brew services start postgresql@10
 ```
 
-To verify that the DB started execute the following command.
+To verify that the DB started [run PSQL](#running-PSQL) as decribed below.
+
+### Running PSQL
+
+PSQL allows running PSQL commands. To run PSQL use the command below.
 
 ```
 psql postgres
@@ -82,7 +87,7 @@ and hit enter.
 
 After you have Postgress installed and available on the commandline issue the following commands to setup the user and database.
 
-> Note: This guide uses default configurations for DB Name, username, password, etc... see [Changing default configurations](#changing-default-configurations) below for details on how to change the defaults.
+> Note: This guide uses default configurations in the API for DB Name, username, password, etc... see [Changing default configurations](#changing-default-configurations) below for details on how to change the defaults that are USED by the API.
 
 ### Creating User
 
@@ -124,9 +129,15 @@ vice_boilerplate=# \l
  vice_boilerplate | vice_boilerplate_user | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
 ```
 
-### Verify User and Datab
+# Installing Depedencies, Building and Running the App
 
-### Changing default configurations
+This can all be done by executing
+
+`go build`
+
+from the `./cmd/webserver` directory.
+
+# Changing default configurations
 
 If you want to configure a different databasename, username, password, etc... then make sure you update the database settings shown below in `./cmd/webserver/main.go` to be consistent with what you want to use.
 

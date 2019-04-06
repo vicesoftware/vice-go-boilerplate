@@ -1,4 +1,4 @@
-module github.com/judwhite/viceskeleton
+module github.com/vicesoftware/vice-go-boilerplate
 
 go 1.12
 

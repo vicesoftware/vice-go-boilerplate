@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/judwhite/viceskeleton/pkg/database"
+	"github.com/vicesoftware/vice-go-boilerplate/pkg/database"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -13,10 +13,10 @@ var (
 
 	flagListen     = app.Flag("listen", "The HTTP listen address.").Default("127.0.0.1:8423").String()
 	flagDBHost     = app.Flag("db-host", "The database host.").Default("127.0.0.1").String()
-	flagDBPort     = app.Flag("db-port", "The database port.").Default("5434").Int()
-	flagDBUser     = app.Flag("db-user", "The database user.").Default("postgres").String()
-	flagDBPassword = app.Flag("db-password", "The database user's password.").Default("password").String()
-	flagDBName     = app.Flag("db-name", "The database name.").Default("vicetestdb").String()
+	flagDBPort     = app.Flag("db-port", "The database port.").Default("5432").Int()
+	flagDBUser     = app.Flag("db-user", "The database user.").Default("vice_boilerplate_user").String()
+	flagDBPassword = app.Flag("db-password", "The database user's password.").Default("vicesoftware").String()
+	flagDBName     = app.Flag("db-name", "The database name.").Default("vice_boilerplate").String()
 	flagDBSSL      = app.Flag("db-ssl", "The database SSL mode.").Default("disable").String()
 )
 
@@ -35,6 +35,8 @@ func main() {
 		DBName:   *flagDBName,
 		SSLMode:  *flagDBSSL,
 	}
+
+	log.Printf("connecting to the database...")
 
 	db, err := database.New(dbSettings)
 	if err != nil {

@@ -1,6 +1,6 @@
 package models
 
-import "github.com/judwhite/viceskeleton/pkg/database"
+import "github.com/vicesoftware/vice-go-boilerplate/pkg/database"
 
 func MapContactResponse(contact database.Contact, addresses []database.Address) ContactResponse {
 	return ContactResponse{
