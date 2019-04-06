@@ -9,6 +9,7 @@ This boilerplate was created to provided an opinonated starting point for projec
 	- [Setting Up the Database](#setting-up-the-database)
 		- [Creating User](#creating-user)
 		- [Creating the DB](#creating-the-db)
+		- [Verify User and Datab](#verify-user-and-datab)
 		- [Changing default configurations](#changing-default-configurations)
 - [Our Values and Priorities](#our-values-and-priorities)
 
@@ -85,19 +86,45 @@ After you have Postgress installed and available on the commandline issue the fo
 
 ### Creating User
 
-Enter `password` as the password when prompted to use boilerplate defaults.
+```
+createuser -P -e vice_boilerplate_user
+```
+
+Enter `vicesofware` as the password when prompted to use boilerplate defaults.
+
+To verify the user was created execute `\du` in psql and you should see something like shown below.
 
 ```
-su - postgres
-createuser -P -e viceuser
+vice_boilerplate=# \du
+                                         List of roles
+       Role name       |                         Attributes                         | Member of
+-----------------------+------------------------------------------------------------+-----------
+ ryan.vice             | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ vice_boilerplate_user |                                                            | {}
 ```
 
 ### Creating the DB
 
 ```
-su - postgres
-createdb -O viceuser vicetestdb
+createdb -O vice_boilerplate_user vice_boilerplate
 ```
+
+To verify the user was created execute `\l` in psql and you should see something like shown below.
+
+```
+vice_boilerplate=# \l
+                                               List of databases
+       Name       |         Owner         | Encoding |   Collate   |    Ctype    |      Access privileges
+------------------+-----------------------+----------+-------------+-------------+-----------------------------
+ postgres         | ryan.vice             | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0        | ryan.vice             | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/"ryan.vice"             +
+                  |                       |          |             |             | "ryan.vice"=CTc/"ryan.vice"
+ template1        | ryan.vice             | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/"ryan.vice"             +
+                  |                       |          |             |             | "ryan.vice"=CTc/"ryan.vice"
+ vice_boilerplate | vice_boilerplate_user | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+```
+
+### Verify User and Datab
 
 ### Changing default configurations
 
