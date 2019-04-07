@@ -10,6 +10,8 @@ This boilerplate was created to provided an opinonated starting point for projec
 	- [Setting Up the Database](#setting-up-the-database)
 		- [Creating User](#creating-user)
 		- [Creating the DB](#creating-the-db)
+		- [Initializing the DB Schema](#initializing-the-db-schema)
+		- [Seeding the Database](#seeding-the-database)
 - [Installing Depedencies, Building and Running the App](#installing-depedencies-building-and-running-the-app)
 - [Changing default configurations](#changing-default-configurations)
 - [Our Values and Priorities](#our-values-and-priorities)
@@ -129,13 +131,131 @@ vice_boilerplate=# \l
  vice_boilerplate | vice_boilerplate_user | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
 ```
 
+### Initializing the DB Schema
+
+To get the DB Schema needed for the boilerplate setup exuecte the following SQL commands.
+
+```SQL
+CREATE TABLE contacts (
+	id              SERIAL PRIMARY KEY,
+	first_name           VARCHAR(100) NOT NULL,
+	last_name  VARCHAR(100) NOT NULL,
+	created_at timestamp with time zone not null,
+	updated_at timestamp with time zone null
+);
+
+CREATE TABLE addresses (
+	id SERIAL PRIMARY KEY,
+	contact_id int not null,
+	line1 varchar(100) not null,
+	line2 varchar(100) null,
+	city varchar(50) not null,
+	state_province varchar(50) not null,
+	postal_code varchar(50) not null,
+	created_at timestamp with time zone not null,
+	updated_at timestamp with time zone null
+);
+
+alter table addresses
+add constraint fk_addresses_contact_id
+foreign key (contact_id)
+references contacts(id);
+```
+
+### Seeding the Database
+
+To seed the database run the following queries.
+
+> Note: `contact_id` in the `addresses` rows must match an `id` in the `contacts` table.
+
+```SQL
+INSERT INTO contacts (first_name, last_name, created_at, updated_at)
+VALUES ('ryan', 'vice', current_timestamp, current_timestamp);
+
+INSERT INTO contacts (first_name, last_name, created_at, updated_at)
+VALUES ('prashanth', 'tondapu', current_timestamp, current_timestamp);
+
+INSERT INTO addresses (
+    contact_id,
+    line1,
+    line2,
+    city,
+    state_province,
+    postal_code,
+    created_at,
+    updated_at
+) VALUES (
+	1, -- This must match id in contacts table
+	'679  Strother Street',
+	'suite 3000',
+	'Calera',
+	'Alabama',
+	'35040',
+	current_timestamp,
+	current_timestamp
+
+);
+
+INSERT INTO addresses (
+    contact_id,
+    line1,
+    line2,
+    city,
+    state_province,
+    postal_code,
+    created_at,
+    updated_at
+) VALUES (
+	1,
+    '4306  Penn Street',
+    'apt 201',
+    'Oates',
+    'Missouri',
+    '63625',
+	current_timestamp,
+	current_timestamp
+
+);
+
+INSERT INTO addresses (
+    contact_id,
+    line1,
+    line2,
+    city,
+    state_province,
+    postal_code,
+    created_at,
+    updated_at
+) VALUES (
+    2,
+    '3339  Woodland Drive',
+    'suite 621',
+    'Spencer',
+    'Iowa',
+    '51301',
+    current_timestamp,
+    current_timestamp
+
+);
+
+
+```
+
 # Installing Depedencies, Building and Running the App
 
-This can all be done by executing
+Installing dependencies and Buidling can both be done by executing the command below
 
 `go build`
 
 from the `./cmd/webserver` directory.
+
+To run the app simply execute
+
+`./webserver`
+
+from the `./cmd/webserver` directory.
+
+Once you run the server you can see that it's working by opening the swagger page in the browser at http://127.0.0.1:8423/swagger/index.html
 
 # Changing default configurations
 
