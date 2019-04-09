@@ -12,6 +12,8 @@ import (
 	"github.com/vicesoftware/vice-go-boilerplate/pkg/database"
 	"github.com/vicesoftware/vice-go-boilerplate/pkg/log"
 	"go.uber.org/zap"
+	"github.com/gorilla/handlers"
+	
 )
 
 type webserver struct {
@@ -23,7 +25,13 @@ func (ws *webserver) Start() {
 	r := ws.router()
 
 	log.Info("starting http server", zap.String("addr", ws.addr))
-	log.Fatal(http.ListenAndServe(ws.addr, r))
+
+	allowedHeaders := handlers.AllowedHeaders([]string{"X-Requested-With"})
+    allowedOrigins := handlers.AllowedOrigins([]string{"*"})
+    allowedMethods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"})
+
+	log.Fatal(http.ListenAndServe(ws.addr, handlers.CORS(allowedHeaders, allowedOrigins, allowedMethods)(r)))
+
 }
 
 func (ws *webserver) router() *mux.Router {
